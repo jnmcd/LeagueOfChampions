@@ -14,4 +14,28 @@ public class Map {
         }
         return visible;
     }
+    public boolean pathExists(Point start, Point end){
+        if(map[end.x][end.y])
+            return false;
+        return true;
+    }
 }
+class Cell {
+    int heuristic = 0;
+    int end = 0;
+    Point p;
+    Cell parent;
+    public Cell(Point p){
+        this.p = p;
+    }
+}
+/*
+Algorithm for pathfinding:
+
+1.  Divide the world in to 100 chunks.
+2.  Find the shortest path from start chunk to end chunk.
+2a. Each chunk along the way, ensure that there is a path from previous chunk to next chunk
+3.  Then, find the shortest path from each chunk in the path to the next chunk.
+4.  Combine them.
+
+*/
