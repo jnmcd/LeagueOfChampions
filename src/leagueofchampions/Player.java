@@ -31,6 +31,12 @@ public class Player extends InputAdapter {
     public void draw(Graphics2D g){
         champ.draw(location.x, location.y, g);
     }
+    public void setDestination(Point p){
+        p.x += location.x;
+        p.y += location.y;
+        if(m.pathExists(location, p))
+            destination = p;
+    }
     @Override public void keyPressed(KeyEvent e){
         if(!keysDown.contains(e.getKeyChar()))
             keysDown.add(e.getKeyChar());
