@@ -31,6 +31,7 @@ class Cell {
 }
 /*
 Algorithm for pathfinding:
+Recursively do this:
 
 1.  Divide the world in to 100 chunks.
 2.  Find the shortest path from start chunk to end chunk.
