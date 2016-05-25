@@ -15,6 +15,8 @@ public class Map {
         return visible;
     }
     public boolean pathExists(Point start, Point end){
+        if(end.x >= 10000 || end.x < 0 || end.y < 0 || end.y >= 10000)
+            return false;
         if(map[end.x][end.y])
             return false;
         return true;
