@@ -11,10 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Window extends JPanel implements ActionListener {
-    JFrame frame = new JFrame("League Of Legends");
+    JFrame frame = new JFrame("League Of Champions");
     Map m = new Map();
     Player p = new Player(m);
     boolean[][] view = new boolean[700][700];
+    long lastTime = 0;
     public Window(){}
     public void init(){
         setPreferredSize(new Dimension(700, 700));
@@ -25,11 +26,12 @@ public class Window extends JPanel implements ActionListener {
         frame.setFocusable(true);
         frame.addKeyListener(p);
         frame.addMouseListener(p);
-        Timer t = new Timer(1, this);
-        t.start();
+        updateView();
     }
     public void updateView(){
         view = m.getView(p);
+        p.move();
+        repaint();
     }
     @Override public void paintComponent(Graphics g){
         for(int x = 0; x < view.length; x++){
