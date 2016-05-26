@@ -9,14 +9,13 @@ public class Player extends InputAdapter {
     Map m = new Map();
     Point location = new Point(30, 30);
     Point destination = null;
-    int maxMS = 100;
-    int currMS = 0;
+    double actualX, actualY = actualX = 30.0;
+    int MS = 100;
     int gold = 500;
     int ap = 0;
     int ad = 50;
     double as = 1;
     boolean inShop = false;
-    Champion champ = new Champion();
     ArrayList<Character> keysDown = new ArrayList();
     public Player(Map map){
         m = map;
@@ -26,21 +25,19 @@ public class Player extends InputAdapter {
             if(destination.equalTo(location))
                 destination = null;
             else {
-                double angle = ((Math.atan2(destination.y - location.y, destination.x - location.x) * 180.0 / Math.PI) + 720) % 360;
-                angle = Math.round(angle / 90.0) % 4;
-                if(angle == 0)
-                    location.x++;
-                if(angle == 1)
-                    location.y++;
-                if(angle == 2)
-                    location.x--;
-                if(angle == 3)
-                    location.y--;
+                double angle = ((Math.atan2(destination.y - actualY, destination.x - actualX)) + 4 * Math.PI) % (2 * Math.PI);
+                actualX += Math.cos(angle) * (MS / 100);
+                actualY += Math.sin(angle) * (MS / 100);
+                location.x = (int) Math.round(actualX);
+                location.y = (int) Math.round(actualY);
+                if(destination.equalTo(location))
+                    destination = null;
             }
     }
     public void draw(Graphics2D g){
-        champ.draw(location.x, location.y, g);
+        draw(location.x, location.y, g);
     }
+    public void draw(int x, int y, Graphics2D g){}
     public void setDestination(Point p){
         p.x += location.x - 350;
         p.y += location.y - 350;
