@@ -8,15 +8,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 public class Window extends JPanel implements ActionListener {
     JFrame frame = new JFrame("League Of Champions");
-    Map m = new Map();
-    Player p = new Player(m);
+    World world;
+    Champion p;
     boolean[][] view = new boolean[700][700];
     long lastTime = 0;
-    public Window(){}
+    public Window(World w){
+        world = w;
+        p = new Champion(world.map);
+        world.players.add(p);
+    }
     public void init(){
         setPreferredSize(new Dimension(700, 700));
         frame.add(this);
@@ -29,7 +32,7 @@ public class Window extends JPanel implements ActionListener {
         updateView();
     }
     public void updateView(){
-        view = m.getView(p);
+        view = world.map.getView(p);
         p.move();
         repaint();
     }
@@ -43,7 +46,18 @@ public class Window extends JPanel implements ActionListener {
                 g.drawRect(x, y, 1, 1);
             }
         }
-        p.draw((Graphics2D) g);
+        for(Player player : world.players){
+            player.draw((Graphics2D)(g));
+        }
+        for(Minion minion : world.minions){
+            minion.draw((Graphics2D)(g));
+        }
+        for(Spell spell : world.spells){
+            spell.draw((Graphics2D)(g));
+        }
+        for(Turret turret : world.turrets){
+            turret.draw((Graphics2D)(g));
+        }
     }
     @Override public void actionPerformed(ActionEvent e){
         p.move();

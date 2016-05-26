@@ -7,4 +7,5 @@ public class World {
     ArrayList<Player> players = new ArrayList();
     ArrayList<Turret> turrets = new ArrayList();
     ArrayList<Minion> minions = new ArrayList();
+    ArrayList<Spell> spells = new ArrayList();
 }
