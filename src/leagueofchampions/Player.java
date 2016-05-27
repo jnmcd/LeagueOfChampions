@@ -6,8 +6,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Player extends InputAdapter {
-    Map m = new Map();
+    World world;
     Point location = new Point(30, 30);
+    Point mouseLocation = new Point(0, 0);
     Point destination = null;
     double actualX, actualY = actualX = 30.0;
     int MS = 100;
@@ -17,8 +18,8 @@ public class Player extends InputAdapter {
     double as = 1;
     boolean inShop = false;
     ArrayList<Character> keysDown = new ArrayList();
-    public Player(Map map){
-        m = map;
+    public Player(World world){
+        this.world = world;
     }
     public void move(){
         if(destination != null)
@@ -41,11 +42,14 @@ public class Player extends InputAdapter {
     public void setDestination(Point p){
         p.x += location.x - 350;
         p.y += location.y - 350;
-        if(m.pathExists(location, p)){
+        if(world.map.pathExists(location, p)){
             System.out.println("Set New Destination");
             System.out.println("X: " + p.x + ", Y: " + p.y);
             destination = p;
         }
+    }
+    public void updateWorld(World w){
+        world = w;
     }
     @Override public void keyPressed(KeyEvent e){
         if(!keysDown.contains(e.getKeyChar()))
@@ -58,5 +62,8 @@ public class Player extends InputAdapter {
     @Override public void mousePressed(MouseEvent e){
         if(e.getButton() == 1)
             setDestination(new Point(e.getX() - 10, e.getY() - 30));
+    }
+    @Override public void mouseMoved(MouseEvent e){
+        mouseLocation = new Point(e.getX(), e.getY());
     }
 }

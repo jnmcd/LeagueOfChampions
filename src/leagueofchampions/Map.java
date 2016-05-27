@@ -22,15 +22,6 @@ public class Map {
         return true;
     }
 }
-class Cell {
-    int heuristic = 0;
-    int end = 0;
-    Point p;
-    Cell parent;
-    public Cell(Point p){
-        this.p = p;
-    }
-}
 /*
 Algorithm for pathfinding:
 Recursively do this:

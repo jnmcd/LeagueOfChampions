@@ -17,7 +17,7 @@ public class Window extends JPanel implements ActionListener {
     long lastTime = 0;
     public Window(World w){
         world = w;
-        p = new Champion(world.map);
+        p = new Champion.MarkMerc(world);
         world.players.add(p);
     }
     public void init(){
@@ -34,6 +34,7 @@ public class Window extends JPanel implements ActionListener {
     public void updateView(){
         view = world.map.getView(p);
         p.move();
+        p.updateWorld(world);
         repaint();
     }
     @Override public void paintComponent(Graphics g){
