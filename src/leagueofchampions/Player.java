@@ -64,6 +64,6 @@ public class Player extends InputAdapter {
             setDestination(new Point(e.getX() - 10, e.getY() - 30));
     }
     @Override public void mouseMoved(MouseEvent e){
-        mouseLocation = new Point(e.getX(), e.getY());
+        mouseLocation = new Point(e.getX() - 10, e.getY() - 30);
     }
 }

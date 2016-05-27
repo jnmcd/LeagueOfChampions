@@ -3,15 +3,19 @@ package leagueofchampions;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Champion extends Player {
     HashMap<Character, Spell> spells = new HashMap();
+    ArrayList<Spell> castSpells = new ArrayList();
     public Champion(World world){
         super(world);
     }
     public void castSpell(Spell s){
-        System.out.println("You just casted " + s.name);
+        if(s.canCast(world, mouseLocation.x + location.y - 350, mouseLocation.y + location.y - 350)){
+            System.out.println("You just casted " + s.name);
+        }
     }
     @Override public void draw(int x, int y, Graphics2D g){
         g.setColor(Color.green);
@@ -45,6 +49,7 @@ public class Champion extends Player {
         }
         public MarkMerc(World world){
             super(world);
+            MS = 120;
             spells.put('q', new ShotgunBlast());
             spells.put('w', new RifleBlast());
             spells.put('e', new SniperBlast());
